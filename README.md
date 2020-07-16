@@ -1,13 +1,14 @@
 # Ticket Booking Example
 
+![Ticket Booking Process](booking-service-java/src/main/resources/ticket-booking.png)
+
 A ticket booking example using 
 * Camunda Cloud, 
 * RabbitMQ,
 * Java Spring Boot App
 * NodeJS App
 
-[]
-![Ticket Booking Process](booking-service-java/src/main/resources/ticket-booking.png)
+![Architecture Overview](architecture.png)
 
 # How To Run
 

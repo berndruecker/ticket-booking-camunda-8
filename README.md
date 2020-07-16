@@ -24,8 +24,8 @@ docker run -d -p 15672:15672 -p 5672:5672 rabbitmq:latest
 * Create a new Zeebe cluster
 * When the new cluster appears in the console, create a new set of client credentials.
 * Copy the client credentials into
-** Java App  `booking-service-java/src/main/resources/application.proeprties`
-** Node App `fake-services-nodejs/.env`
+  * Java App  `booking-service-java/src/main/resources/application.proeprties`
+  * Node App `fake-services-nodejs/.env`
 
 ## Run NodeJs Fake Services
 

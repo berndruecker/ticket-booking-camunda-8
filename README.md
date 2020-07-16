@@ -12,6 +12,9 @@ A ticket booking example using
 
 # How To Run
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=m3MYuRKLZa8" target="_blank"><img src="http://img.youtube.com/vi/m3MYuRKLZa8/0.jpg" alt="Walkthrough" width="240" height="180" border="10" /></a>
+
+
 ## Run RabbitMQ locally
 
 ```

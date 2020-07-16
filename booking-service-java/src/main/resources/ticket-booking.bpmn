@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1a4gt8m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1a4gt8m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.9.0">
   <bpmn:collaboration id="Collaboration_0t1vxrh">
     <bpmn:participant id="ticket-booking-participant" name="TicketBooking" processRef="ticket-booking" />
     <bpmn:participant id="Participant_1l2gxa0" name="Payment" />
@@ -8,7 +8,7 @@
     <bpmn:messageFlow id="Flow_11rhvrd" name="gRPC&#10;(Pub/Sub Engine)" sourceRef="Activity_1g89uec" targetRef="Participant_0y2e8ja" />
     <bpmn:messageFlow id="Flow_08b5p57" name="AMQP" sourceRef="Activity_0lox1kf" targetRef="Participant_1l2gxa0" />
     <bpmn:messageFlow id="Flow_1lm74ik" name="AMQP" sourceRef="Participant_1l2gxa0" targetRef="Activity_0h19mxb" />
-    <bpmn:messageFlow id="Flow_02bhzx9" sourceRef="Activity_0etdda4" targetRef="Participant_1i465kq" />
+    <bpmn:messageFlow id="Flow_02bhzx9" name="REST" sourceRef="Activity_0etdda4" targetRef="Participant_1i465kq" />
   </bpmn:collaboration>
   <bpmn:process id="ticket-booking" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
@@ -192,7 +192,7 @@
         <di:waypoint x="840" y="227" />
         <di:waypoint x="840" y="430" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="846" y="376" width="88" height="27" />
+          <dc:Bounds x="840" y="383" width="30" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

@@ -1,7 +1,6 @@
 package io.berndruecker.ticketbooking.rest;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -35,10 +34,11 @@ public class TicketBookingRestController {
     String simulateBookingFailure = exchange.getRequest().getQueryParams().getFirst("simulateBookingFailure");
     
     // This would be best generated even in the client to allow idempotency!
-    String bookingReferenceId = UUID.randomUUID().toString();
+    BookTicketResponse response = new BookTicketResponse();
+    response.bookingReferenceId = UUID.randomUUID().toString();
     
     HashMap<String, Object> variables = new HashMap<String, Object>();
-    variables.put(ProcessConstants.VAR_BOOKING_REFERENCE_ID, bookingReferenceId);
+    variables.put(ProcessConstants.VAR_BOOKING_REFERENCE_ID, response.bookingReferenceId);
     if (simulateBookingFailure!=null) {
       variables.put(ProcessConstants.VAR_SIMULATE_BOOKING_FAILURE, simulateBookingFailure);
     }
@@ -49,18 +49,17 @@ public class TicketBookingRestController {
         .latestVersion() //
         .variables(variables) //
         .withResult() // wait for the workflow to finish
-        .send(); // with this we get a feature
+        .send(); // with this we get a future
 
     try {
       // Block until it is really done
       WorkflowInstanceResult workflowInstanceResult = future.join();
 
       // Unwrap data from workflow after it finished
-      BookTicketResponse response = new BookTicketResponse();
       response.reservationId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_RESERVATION_ID);
       response.paymentConfirmationId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_PAYMENT_CONFIRMATION_ID);
       response.ticketId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_TICKET_ID);
-      return response;
+      
     } catch (ClientStatusException ex) {
 
       // of course we can run into a timeout if the workflow does not finish
@@ -68,14 +67,17 @@ public class TicketBookingRestController {
       logger.error("Timeout on waiting for workflow"); //, ex);
 
       // TODO: Return 202
-      return null;
     }
+    return response;
   }
+  
+  // TODO: Add API to query status (if you got an 202 earlier on)
 
   public static class BookTicketResponse {
     public String reservationId;
     public String paymentConfirmationId;
-    public String ticketId;
+    public String ticketId;   
+    public String bookingReferenceId;
 
     public boolean isSuccess() {
       return (ticketId != null);

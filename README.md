@@ -21,7 +21,9 @@ A ticket booking example using
 docker run -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 ```
 
-http://localhost:15672/#/queues/
+* http://localhost:15672/#/queues/
+* User: guest
+* PAssword: guest
 
 
 ## Create Camunda Cloud Cluster

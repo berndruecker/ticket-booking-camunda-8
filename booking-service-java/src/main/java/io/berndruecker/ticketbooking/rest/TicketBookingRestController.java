@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ServerWebExchange;
@@ -30,7 +32,7 @@ public class TicketBookingRestController {
   private ZeebeClient client;
 
   @PutMapping("/ticket")
-  public BookTicketResponse bookTicket(ServerWebExchange exchange) {
+  public ResponseEntity<BookTicketResponse> bookTicket(ServerWebExchange exchange) {
     String simulateBookingFailure = exchange.getRequest().getQueryParams().getFirst("simulateBookingFailure");
     
     // This would be best generated even in the client to allow idempotency!
@@ -60,15 +62,15 @@ public class TicketBookingRestController {
       response.paymentConfirmationId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_PAYMENT_CONFIRMATION_ID);
       response.ticketId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_TICKET_ID);
       
+      return ResponseEntity.status(HttpStatus.OK).body(response);
     } catch (ClientStatusException ex) {
 
       // of course we can run into a timeout if the workflow does not finish
       // within that timeframe!
       logger.error("Timeout on waiting for workflow"); //, ex);
 
-      // TODO: Return 202
+      return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
-    return response;
   }
   
   // TODO: Add API to query status (if you got an 202 earlier on)

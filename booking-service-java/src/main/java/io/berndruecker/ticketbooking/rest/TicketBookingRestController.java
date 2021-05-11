@@ -15,11 +15,11 @@ import org.springframework.web.server.ServerWebExchange;
 
 import io.berndruecker.ticketbooking.ProcessConstants;
 import io.berndruecker.ticketbooking.adapter.RetrievePaymentAdapter;
-import io.zeebe.client.ZeebeClient;
-import io.zeebe.client.api.ZeebeFuture;
-import io.zeebe.client.api.command.ClientStatusException;
-import io.zeebe.client.api.response.WorkflowInstanceResult;
-import io.zeebe.spring.client.EnableZeebeClient;
+import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.api.ZeebeFuture;
+import io.camunda.zeebe.client.api.command.ClientStatusException;
+import io.camunda.zeebe.client.api.response.ProcessInstanceResult;
+import io.camunda.zeebe.spring.client.EnableZeebeClient;
 
 @SpringBootConfiguration
 @RestController
@@ -46,7 +46,7 @@ public class TicketBookingRestController {
     }
 
     // Start new instance of the ticket-booking workflow
-    ZeebeFuture<WorkflowInstanceResult> future = client.newCreateInstanceCommand() //
+    ZeebeFuture<ProcessInstanceResult> future = client.newCreateInstanceCommand() //
         .bpmnProcessId("ticket-booking") //
         .latestVersion() //
         .variables(variables) //
@@ -55,7 +55,7 @@ public class TicketBookingRestController {
 
     try {
       // Block until it is really done
-      WorkflowInstanceResult workflowInstanceResult = future.join();
+      ProcessInstanceResult workflowInstanceResult = future.join();
 
       // Unwrap data from workflow after it finished
       response.reservationId = (String) workflowInstanceResult.getVariablesAsMap().get(ProcessConstants.VAR_RESERVATION_ID);

@@ -1,12 +1,13 @@
 package io.berndruecker.ticketbooking;
 
+import io.camunda.zeebe.client.ZeebeClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import io.zeebe.spring.client.EnableZeebeClient;
-import io.zeebe.spring.client.annotation.ZeebeDeployment;
+import io.camunda.zeebe.spring.client.EnableZeebeClient;
+import io.camunda.zeebe.spring.client.annotation.ZeebeDeployment;
 
 @SpringBootApplication
 @EnableZeebeClient

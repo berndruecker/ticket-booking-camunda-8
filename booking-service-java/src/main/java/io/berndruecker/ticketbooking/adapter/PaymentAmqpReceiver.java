@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.ZeebeClient;
 
 @Component
 public class PaymentAmqpReceiver {

@@ -7,7 +7,9 @@ import { ZBClient } from "zeebe-node";
 require("dotenv").config();
 
 const zeebeClient = new ZBClient();
-const worker = zeebeClient.createWorker("reserve-seats", (job, complete) => {
+const worker = zeebeClient.createWorker('reserve-seats', reserveSeatsHandler)
+
+function reserveSeatsHandler(job, _, worker) {  
   console.log("\n\n Reserve seats now...");
   console.log(job);
 
@@ -15,14 +17,16 @@ const worker = zeebeClient.createWorker("reserve-seats", (job, complete) => {
   // TODO: Fake some results! Fake an error (when exactly?)
   if ("seats" !== job.variables.simulateBookingFailure) {
     console.log("Successul :-)");
-    complete.success({
+    return job.complete({
         reservationId: "1234",
       });
   } else {
     console.log("ERROR: Seats could not be reserved!");
-    complete.error("ErrorSeatsNotAvailable");
+    return job.error("ErrorSeatsNotAvailable");
   }
-})
+}
+
+
 
 
 ////////////////////////////////////
@@ -71,11 +75,11 @@ var express = require("express");
 var app = express();
 
 app.listen(3000, () => {
- console.log("HTTP Server running on port 3000");
+  console.log("HTTP Server running on port 3000");
 });
 
 app.get("/ticket", (req, res, next) => {
   var ticketId = uuidv4();
   console.log("\n\n [x] Create Ticket %s", ticketId);
   res.json({"ticketId" : ticketId});
- });
+});

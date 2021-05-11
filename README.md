@@ -42,6 +42,7 @@ The Zeebe related code can be developed from scratch following this get started 
 
 ```
 cd fake-services-nodejs
+npm update
 ts-node src/app.ts
 ```
 

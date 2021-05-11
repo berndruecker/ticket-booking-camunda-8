@@ -11,9 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.6.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "express": "^4.17.1",
-    "uuid": "^8.2.0",
-    "zeebe-node": "^0.23.3"
+    "uuid": "^8.3.2",
+    "zeebe-node": "1.0.0-alpha.7"
   }
 }

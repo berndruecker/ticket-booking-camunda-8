@@ -5,9 +5,9 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.zeebe.client.api.response.Topology;
-import io.zeebe.spring.client.EnableZeebeClient;
-import io.zeebe.spring.client.ZeebeClientLifecycle;
+import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.api.response.Topology;
+import io.camunda.zeebe.spring.client.EnableZeebeClient;
 
 @SpringBootConfiguration
 @RestController
@@ -15,7 +15,7 @@ import io.zeebe.spring.client.ZeebeClientLifecycle;
 public class StatusRestController {
     
     @Autowired
-    private ZeebeClientLifecycle client;
+    private ZeebeClient client;
 
     @GetMapping("/status")
     public String getStatus() {

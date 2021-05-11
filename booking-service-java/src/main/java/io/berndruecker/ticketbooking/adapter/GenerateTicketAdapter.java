@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import io.berndruecker.ticketbooking.ProcessConstants;
-import io.zeebe.client.api.response.ActivatedJob;
-import io.zeebe.client.api.worker.JobClient;
-import io.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.client.api.worker.JobClient;
+import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
 
 @Component
 public class GenerateTicketAdapter {
@@ -24,7 +24,7 @@ public class GenerateTicketAdapter {
   public static String ENDPOINT = "http://localhost:3000/ticket";
 
   @Autowired
-  private RestTemplate restTemplate; // = new RestTemplate();
+  private RestTemplate restTemplate;
 
   @ZeebeWorker(type = "generate-ticket")
   public void callGenerateTicketRestService(final JobClient client, final ActivatedJob job) throws IOException {
@@ -43,7 +43,8 @@ public class GenerateTicketAdapter {
       
       client.newCompleteCommand(job.getKey()) //
         .variables(Collections.singletonMap(ProcessConstants.VAR_TICKET_ID, ticket.ticketId)) //
-        .send().join();
+        .send()
+        .exceptionally(throwable -> { throw new RuntimeException("Could not complete job " + job, throwable); });
     }
   }
 

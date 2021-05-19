@@ -57,12 +57,12 @@ mvn package exec:java -f booking-service-java\
 ## Test
 
 ```
- curl -X PUT http://localhost:8080/ticket
+ curl -i -X PUT http://localhost:8080/ticket
 ```
 
 Simulate failures by:
 
 ```
-curl -X PUT http://localhost:8080/ticket?simulateBookingFailure=seats
-curl -X PUT http://localhost:8080/ticket?simulateBookingFailure=ticket
+curl -i -X PUT http://localhost:8080/ticket?simulateBookingFailure=seats
+curl -i -X PUT http://localhost:8080/ticket?simulateBookingFailure=ticket
 ```

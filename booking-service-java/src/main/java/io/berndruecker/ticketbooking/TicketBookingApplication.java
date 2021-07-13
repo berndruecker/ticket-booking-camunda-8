@@ -13,7 +13,7 @@ import io.camunda.zeebe.spring.client.annotation.ZeebeDeployment;
 
 @SpringBootApplication
 @EnableZeebeClient
-@ZeebeDeployment(classPathResources = { "ticket-booking.bpmn" })
+@ZeebeDeployment(resources = { "classpath:ticket-booking.bpmn" })
 public class TicketBookingApplication {
 
   public static void main(String[] args) {

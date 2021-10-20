@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1a4gt8m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.9.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1a4gt8m" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
   <bpmn:collaboration id="Collaboration_0t1vxrh">
     <bpmn:participant id="ticket-booking-participant" name="TicketBooking" processRef="ticket-booking" />
     <bpmn:participant id="Participant_1l2gxa0" name="Payment" />
@@ -54,7 +54,7 @@
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT30S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:boundaryEvent id="Event_076cmo0" name="seat could not be reserved" attachedToRef="Activity_1g89uec">
+    <bpmn:boundaryEvent id="Event_076cmo0" name="Seats not available" attachedToRef="Activity_1g89uec">
       <bpmn:outgoing>Flow_18sbo4b</bpmn:outgoing>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_0t3hnlu" errorRef="Error_11kp03o" />
     </bpmn:boundaryEvent>
@@ -148,7 +148,7 @@
       <bpmndi:BPMNShape id="Event_02ljv02_di" bpmnElement="Event_076cmo0">
         <dc:Bounds x="372" y="209" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="397" y="252" width="85" height="27" />
+          <dc:Bounds x="396" y="246" width="47" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0pqivlb_di" bpmnElement="Event_1ywtp2y">

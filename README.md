@@ -3,7 +3,7 @@
 ![Ticket Booking Process](booking-service-java/src/main/resources/ticket-booking.png)
 
 A ticket booking example using 
-* Camunda Cloud, 
+* Camunda Platform 8, 
 * RabbitMQ,
 * Java Spring Boot App
 * NodeJS App
@@ -23,14 +23,14 @@ docker run -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 
 * http://localhost:15672/#/queues/
 * User: guest
-* PAssword: guest
+* Password: guest
 
 
-## Create Camunda Cloud Cluster
+## Create Camunda Platform 8 SaaS Cluster
 
 * Login to https://camunda.io/
-* Create a new Zeebe cluster
-* When the new cluster appears in the console, create a new set of client credentials.
+* Create a new cluster
+* When the new cluster appears in the console, create a new set of API client credentials.
 * Copy the client credentials into
   * Java App  `booking-service-java/src/main/resources/application.properties`
   * Node App `fake-services-nodejs/.env`
@@ -38,7 +38,7 @@ docker run -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 
 ## Run NodeJs Fake Services
 
-The Zeebe related code can be developed from scratch following this get started tutorial: https://docs.cloud.camunda.io/docs/node-client
+If you want to understand the code, please have a look into this get started tutorial: https://github.com/camunda/camunda-platform-get-started/tree/main/nodejs
 
 ```
 cd fake-services-nodejs
@@ -48,7 +48,7 @@ ts-node src/app.ts
 
 ## Run Java Ticket Booking Service
 
-The Zeebe related code can be developed from scratch following this get started tutorial: https://docs.cloud.camunda.io/docs/spring-java-client
+If you want to understand the code, please have a look into this documentation: https://github.com/camunda/camunda-platform-get-started/tree/main/spring
 
 ```
 mvn package exec:java -f booking-service-java\

@@ -1,6 +1,7 @@
 package io.berndruecker.ticketbooking.adapter;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -24,8 +25,8 @@ public class RetrievePaymentAdapter {
   @Autowired
   protected RabbitTemplate rabbitTemplate;
   
-  @ZeebeWorker(type = "retrieve-payment")
-  public void retrievePayment(final JobClient client, final ActivatedJob job) {
+  @ZeebeWorker(type = "retrieve-payment", autoComplete = true)
+  public Map<String, Object> retrievePayment(final ActivatedJob job) {
       logger.info("Send message to retrieve payment [" + job + "]");
       
       // create correlation id for this request/response cycle
@@ -34,9 +35,6 @@ public class RetrievePaymentAdapter {
       // Send AMQP Message (using the default exchange created, see https://stackoverflow.com/questions/43408096/springamqp-rabbitmq-how-to-send-directly-to-queue-without-exchange)
       rabbitTemplate.convertAndSend(RABBIT_QUEUE_NAME, paymentRequestId);
             
-      // complete activity
-      client.newCompleteCommand(job.getKey()) //
-        .variables(Collections.singletonMap(ProcessConstants.VAR_PAYMENT_REQUEST_ID, paymentRequestId))
-        .send().join();
+      return Collections.singletonMap(ProcessConstants.VAR_PAYMENT_REQUEST_ID, paymentRequestId);
   }
 }

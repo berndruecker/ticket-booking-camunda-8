@@ -2,6 +2,7 @@ package io.berndruecker.ticketbooking.adapter;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +27,8 @@ public class GenerateTicketAdapter {
   @Autowired
   private RestTemplate restTemplate;
 
-  @ZeebeWorker(type = "generate-ticket")
-  public void callGenerateTicketRestService(final JobClient client, final ActivatedJob job) throws IOException {
+  @ZeebeWorker(type = "generate-ticket", autoComplete=true)
+  public Map<String, Object> callGenerateTicketRestService(final ActivatedJob job) throws IOException {
     logger.info("Generate ticket via REST [" + job + "]");
 
     if ("ticket".equalsIgnoreCase((String)job.getVariablesAsMap().get(ProcessConstants.VAR_SIMULATE_BOOKING_FAILURE))) {
@@ -40,11 +41,8 @@ public class GenerateTicketAdapter {
       // Call REST API, simply returns a ticketId
       CreateTicketResponse ticket = restTemplate.getForObject(ENDPOINT, CreateTicketResponse.class);  
       logger.info("Succeeded with " + ticket);
-      
-      client.newCompleteCommand(job.getKey()) //
-        .variables(Collections.singletonMap(ProcessConstants.VAR_TICKET_ID, ticket.ticketId)) //
-        .send()
-        .exceptionally(throwable -> { throw new RuntimeException("Could not complete job " + job, throwable); });
+
+      return Collections.singletonMap(ProcessConstants.VAR_TICKET_ID, ticket.ticketId);
     }
   }
 

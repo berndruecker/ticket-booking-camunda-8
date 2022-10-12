@@ -1,6 +1,7 @@
 package io.berndruecker.ticketbooking;
 
 import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.spring.client.annotation.Deployment;
 import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +14,7 @@ import io.camunda.zeebe.spring.client.annotation.ZeebeDeployment;
 
 @SpringBootApplication
 @EnableZeebeClient
-@ZeebeDeployment(resources = { "classpath:ticket-booking.bpmn" })
+@Deployment(resources = { "classpath:ticket-booking.bpmn" })
 public class TicketBookingApplication {
 
   public static void main(String[] args) {

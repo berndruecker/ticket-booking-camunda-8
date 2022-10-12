@@ -1,19 +1,17 @@
 package io.berndruecker.ticketbooking.adapter;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.UUID;
-
+import io.berndruecker.ticketbooking.ProcessConstants;
+import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.berndruecker.ticketbooking.ProcessConstants;
-import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import java.util.Collections;
+import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class RetrievePaymentAdapter {
@@ -25,7 +23,7 @@ public class RetrievePaymentAdapter {
   @Autowired
   protected RabbitTemplate rabbitTemplate;
   
-  @ZeebeWorker(type = "retrieve-payment", autoComplete = true)
+  @JobWorker(type = "retrieve-payment")
   public Map<String, Object> retrievePayment(final ActivatedJob job) {
       logger.info("Send message to retrieve payment [" + job + "]");
       

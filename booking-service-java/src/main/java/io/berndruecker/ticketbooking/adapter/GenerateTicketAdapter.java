@@ -1,19 +1,17 @@
 package io.berndruecker.ticketbooking.adapter;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-
+import io.berndruecker.ticketbooking.ProcessConstants;
+import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import io.berndruecker.ticketbooking.ProcessConstants;
-import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 @Component
 public class GenerateTicketAdapter {
@@ -27,7 +25,7 @@ public class GenerateTicketAdapter {
   @Autowired
   private RestTemplate restTemplate;
 
-  @ZeebeWorker(type = "generate-ticket", autoComplete=true)
+  @JobWorker(type = "generate-ticket")
   public Map<String, Object> callGenerateTicketRestService(final ActivatedJob job) throws IOException {
     logger.info("Generate ticket via REST [" + job + "]");
 
